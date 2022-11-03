@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 判断是否为回文字符串
  */
-public class IsPalindrome {
+public class IsPalindrome_125 {
 
     public boolean isPalindrome(String s) {
         //全部转小写
@@ -56,7 +56,7 @@ public class IsPalindrome {
     }
 
         public static void main(String[] args) {
-        IsPalindrome isPalindrome = new IsPalindrome();
+        IsPalindrome_125 isPalindrome = new IsPalindrome_125();
         String testStr = "A man, a plan, a canal: Panama";
         String testStr1 = "race a car";
         String testStr02 = "0P";
