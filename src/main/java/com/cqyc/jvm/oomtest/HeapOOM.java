@@ -1,4 +1,4 @@
-package com.cqyc.solution.jvm.oomtest;
+package com.cqyc.jvm.oomtest;
 
 import java.util.ArrayList;
 import java.util.List;
