@@ -19,3 +19,16 @@
         03：隐藏依赖：应该显式通知容器，比如构造起或setter通知，外部容器不应该感知bean内部私有字段，会破坏封装性。
     spring支持哪些注入方式：
         01：字段注入 02：构造起注入（如果两个bean循环依赖的话，构造器会出现循环引用的问题，这个时候可以在某一个构造起中加@Lazy注解，延迟加载） 03：setter注入
+
+4、**`spring bean的初始化过程`**
+    spring初始换过程分5个小阶段：实例化、初始化、注册destruction回调、bean的正常使用、bean的销毁。
+    01：实例化是创建对象的过程，通过调用类的构造器创建bean实例，属于生命周期开始阶段，对应doCreateBean中的createBeanInstance方法。
+    02：初始化是Bean创建之后，进行一些设置或准备工作。包括bean的属性，调用各种前置和后置处理器。对应doCreateBean中的populateBean和initializeBean。
+    03：实例化+初始化代码实现：01：创建bean实例的代码主要是在createBeanInstance方法，它里面逻辑是先确保bean对应类有没有被加载，如果有工厂方法，调用工厂方法创建这个bean，没有的话调用它的
+        构造器方法创建bean。 02：然后就是初始化，在初始化前，会有一段解决三级循环依赖的代码。03：初始化的第一步就是设置属性值（对应方法就是populateBean方法），它负责将属性值应用到bean实例中，
+        处理了自动装配、属性注入、依赖检查。04：initializeBean方法，这是初始化关键方法，第一步先检查Aware，看这个Bean是不是显现了BeanNameAware、BeanFactoryAware等aware接口，实现了
+        就调用它们的方法执行。第二步调用BeanPostProcessor前置处理方法，在bean初始化前添加一些自己的逻辑处理。第三步就是调用afterPropertiesSet方法或者自定义init-method方法。
+        第四步就是beanPostProcessor后置处理方法,除了会调用自定义的后置方法外，还会调用wrapIfNecessary方法创建AOP代理。
+
+5、**`spring的事务传播机制`**
+    
