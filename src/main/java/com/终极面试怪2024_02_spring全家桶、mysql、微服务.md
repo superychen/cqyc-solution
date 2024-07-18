@@ -31,4 +31,12 @@
         第四步就是beanPostProcessor后置处理方法,除了会调用自定义的后置方法外，还会调用wrapIfNecessary方法创建AOP代理。
 
 5、**`spring的事务传播机制`**
+    spring事务传播机制用于控制多个事务方法相互调用时的事务行为。spring事务规定了7中事务传播级别，默认是REQUIRED：
+    01：REQUIRED：如果不存在事务就开启事务，存在事务就加入事务，保证只有一个事务运行。02：REQUIRES_NEW：每次执行新开一个事务，如果当前存在事务，就挂起事务
+    03：SUPPORTS：有事务加入事务，没事务就普通执行。04：NOT_SUPPORTED：有事务暂停事务，没有普通执行。05、MANDATORY：强制有事务，没有事务报异常
+    06：NEVER：有事务则报异常 07、NESTED：有事务就创建嵌套事务，嵌套事务不影响父事务，父事务影响嵌套事务。
+
+6、**`Autowired和Resource的关系？`**
+    相同点：两个注解功能基本是等价的，可以将bean注入到filed。不同点：byName和Type匹配顺序不同，Autowired是先通过ByType，然后在ByName的方式。
+Resource在获取bean，是先通过byName方式，在是byType方式
     
