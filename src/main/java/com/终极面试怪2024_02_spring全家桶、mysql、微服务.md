@@ -27,7 +27,7 @@
     03：实例化+初始化代码实现：01：创建bean实例的代码主要是在createBeanInstance方法，它里面逻辑是先确保bean对应类有没有被加载，如果有工厂方法，调用工厂方法创建这个bean，没有的话调用它的
         构造器方法创建bean。 02：然后就是初始化，在初始化前，会有一段解决三级循环依赖的代码。03：初始化的第一步就是设置属性值（对应方法就是populateBean方法），它负责将属性值应用到bean实例中，
         处理了自动装配、属性注入、依赖检查。04：initializeBean方法，这是初始化关键方法，第一步先检查Aware，看这个Bean是不是显现了BeanNameAware、BeanFactoryAware等aware接口，实现了
-        就调用它们的方法执行。第二步调用BeanPostProcessor前置处理方法，在bean初始化前添加一些自己的逻辑处理。第三步就是调用afterPropertiesSet方法或者自定义init-method方法。
+        就调用它们的构造方法执行。第二步调用BeanPostProcessor前置处理方法，在bean初始化前添加一些自己的逻辑处理。第三步就是调用afterPropertiesSet方法或者自定义init-method方法。
         第四步就是beanPostProcessor后置处理方法,除了会调用自定义的后置方法外，还会调用wrapIfNecessary方法创建AOP代理。
 
 5、**`spring的事务传播机制`**
@@ -39,4 +39,40 @@
 6、**`Autowired和Resource的关系？`**
     相同点：两个注解功能基本是等价的，可以将bean注入到filed。不同点：byName和Type匹配顺序不同，Autowired是先通过ByType，然后在ByName的方式。
 Resource在获取bean，是先通过byName方式，在是byType方式
+
+7、**`beanFactory和factoryBean关系？`**
+    01、BeanFactory比较常用，bean工厂，整个ioc容器的一部分，负责管理bean的创建和生命周期。比如applicationContext，其实就是一种BeanFactory。
+    02、FactoryBean是一个接口，定义工厂bean，可以生产某种类型的对象，定义一个bean后，实现了factoryBean，返回的不是bean实例，而是getObject中的得到的对象，比如
+        dubbo中的dubboReference，这个是用来创建远程服务代理对象。factoryBean通常用来创建复杂对象，比如通过特定的创建过程获取的对象。
+        
+8、**`spring在业务常见的使用方式`**
+    01、通过IOC实现策略模式。02、通过AOP实现通用参数拦截校验、日志打印、缓存逻辑什么的。 03、通过Event异步解耦（spring中的event有同步模式和异步模式）。
+    04、通过spring管理事务
     
+9、**`spring如何开启事务`**
+    01、编程式事务，基于底层的api，如PlatformTransactionManager、TransactionDefinition、transactionTemplate等核心接口，开发者通过编程的方式进行事务管理。
+    02、声明式事务，可以基于注解或xml的方式管理事务。优点：01：使用aop实现，本质在目标方法执行前后拦截，对代码没有侵入性，只需要写业务逻辑即可。
+           缺点：01、粒度问题（最小到方法上） 02、用错方式导致事务不生效
+    事务失效原因：
+     01、代理（AOP）失效情况：1、@Transactional用在非puclic方法上（private只会在当前对象调用，不会走到代理对象）
+        2、同一个类中方法调用，导致失效（根private一样，无法走到代理对象）3、final、static方法：代理对象无法对final方法进行覆盖，static方法属于这个类，并不是对象的。
+     02、@transactional方式不对：如使用注解属性propagation设置错误，如not_supported，只会在非事务下执行。还就是rollbackFor设置错误。
+     03、异常被捕获。   04、事务中用了多线程，transactional使用ThreadLocal机制存储事务上下文，新线程是不会包含原有的事务。
+                    
+10、**`spring中用到的设计模式`**
+    01、工厂模式  02、适配器模式（springMvc中的HandlerAdapter，用于controller注解解析和url映射就是通过requestMappingHandlerAdapter实现）
+    03、代理模式（spring aop） 04、单例模式（bean的singleton）05、模版方法模式（事务管理中的transactionTemplate，
+        把事务管理设置为三个步骤模版实现，1：执行事务逻辑 2、异常回滚事务 3、提交事务） 06、责任链模式（springMVC中拦截器，如核心类handlerExecutionChain）
+
+11、**`spring中的循环依赖问题`**
+    循环依赖是指两个或者多个bean之前相互依赖，形成一个循环引用的情况，不处理会导致应用程序启动失败。spring中解决循环依赖的方式是引入三级缓存，但是有限制：
+        01：相互依赖的bean必须是单例bean 02：依赖注入的方式不能都是构造器注入。
+    为什么只支持单例：spring循环依赖的解决方案主要是通过对象的提前暴露实现的，创建过程中引用到另一个创建的对象，会提前暴露一个尚未完全初始化的对象实例，就是半成品。
+        单例创建和初始化只会发生一次，所以依赖关系不会变化，可以通过半成品对象解决循环依赖。prototype原型对象会创建多次，运行过程中是动态的。
+    为什么不支持构造函数注入：在对象实例化过程中，构造函数最先被调用的，此时对象还未完成实例化，无法注入半成品对象。
+        如何解决构造器注入的循环依赖：01、重新设计，彻底消除循环依赖 02、改成非构造器注入 3、使用@Lazy解决
+        
+12、**`spirngMVC是如何将不同的request路由到不同的Controller`**
+    在mvc流程中，http请求进入tomcat并在httpServlet处理时，会解析httpRequest数据，以此拿到handlerMethod。其实mvc就是从不同的request拿到对应handlerMethod。
+    所以在mvc启动时，会把@requestMapping注解的方法和类封装成一个requestMappingInfo和handlerMethod，然后注册到mappingRegistry。当httpServletRequest访问时，
+        会通过AbstractHandlerMethodMapping中lookupHandlerMethod方法获取对应的handlerMethod。
