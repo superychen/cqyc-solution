@@ -76,3 +76,18 @@ Resource在获取bean，是先通过byName方式，在是byType方式
     在mvc流程中，http请求进入tomcat并在httpServlet处理时，会解析httpRequest数据，以此拿到handlerMethod。其实mvc就是从不同的request拿到对应handlerMethod。
     所以在mvc启动时，会把@requestMapping注解的方法和类封装成一个requestMappingInfo和handlerMethod，然后注册到mappingRegistry。当httpServletRequest访问时，
         会通过AbstractHandlerMethodMapping中lookupHandlerMethod方法获取对应的handlerMethod。
+
+12、**`如何让你的bean在其他bean之前加载`**
+    bean初始化两个时机：01、spring容器主动初始化该bean 02、其他bean依赖该bean，该bean会被初始化
+    实现方式：01、直接依赖某bean 02、dependsOn：使用注解@DependsOn("beanB") 03、beanFactoryPostProcessor（spring的bean在初始化之前，
+        会通过beanFactoryPostProcessor中的postProcessBeanFactory对工厂进行处理）
+    踩坑：@Order只能控制同一个bean类型中的集和顺序，不能控制不同bean的初始化顺序
+
+13、**`springBoot如何实现自动配置`**
+    根据类路径的jar包，为jar包中的类自动配置，简单来说就是根据定义在classpath下的类，自动给你生成bean，加载到spring的context中，然后通过条件配置决定那些可以配置，然后将configuration配置
+到spring.factories中。主要的扫描是通过启动时的一个enableAutoConfiguration注解，该注解中有个import的enableAutoConfigurationImportSelector会扫描classpath下所有的spring.factories文件，
+然后注册到bean中。
+
+14、**`springboot如何实现main方法启动项目？`**
+
+    
