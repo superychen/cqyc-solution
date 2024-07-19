@@ -89,5 +89,13 @@ Resource在获取bean，是先通过byName方式，在是byType方式
 然后注册到bean中。
 
 14、**`springboot如何实现main方法启动项目？`**
+    通过springApplication类的静态方法run来启动web项目，里面使用了一个内嵌的tomcat服务器，并配置为处理web请求。spring boot自动扫描程序中的spring组件，会自动配置大部分的web开发所需配置，包括
+请求处理、视图解析、静态资源处理，这个时候tomcat也会启动。在run方法中，会有一个步骤进行上下文刷新（refreshContext），这个过程中，会调用一个关键方法onRefresh（在servletWebServerApplicationContext中）。
+onRefresh中有一个createWebServer方法，里面有一段factory.getWebServer(getSelfInitializer())代码，这里factory有tomcat、undertow、jetty三种实现。在getWebServer中最后有一步是
+getTomcatWebServer，会创建一个tomcatServer，并进行一个启动。
+
+
+
+
 
     
