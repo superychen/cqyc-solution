@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+sap_Ar人员表 -> vp: 每月（月初-月中）拉取当月和上个月\nAR人员与客户号对应差异数据
+vp -> 开票中心: 更新对应每月AR专员
+
+开票中心 --> vp: 申请代开票信息\n生成开票申请单
+vp -> vp: 邮件通知对应AR专员
+vp -> vp: 超三天申请单未开票\n状态增加告警邮件
+vp --> sap_Ar人员表: 拉取对应AR人员对应AR组长以及告警人员,\n重发相关邮件
+vp --> vp: 拉取是否开票信息
+@enduml
