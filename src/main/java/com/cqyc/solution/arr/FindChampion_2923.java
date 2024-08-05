@@ -14,6 +14,7 @@ import java.util.Stack;
 public class FindChampion_2923 {
 
     public int findChampion(int[][] grid) {
+
         LinkedList<Integer> list = new LinkedList<>();
 
         //这个i就是第几队
@@ -33,9 +34,28 @@ public class FindChampion_2923 {
     }
 
     public static void main(String[] args) {
-        FindChampion_2923 test = new FindChampion_2923();
-        int[][] ints = {{0, 0, 1}, {1, 0, 1}, {0, 0, 0}};
-        System.out.println("res = " + test.findChampion(ints));
+
+        String str = "-12*34";
+//        String str = "*-1234";
+        char[] chars = str.toCharArray();
+        if(chars.length == 0) {
+            System.out.println("111");
+        }
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < chars.length; i++) {
+            char aChar = chars[i];
+            if(i == 0 && aChar == '-') {
+                res.append("-");
+            }
+            if (aChar >= '0' && aChar <= '9') {
+                res.append(aChar);
+            }
+        }
+        System.out.println("res = " + Integer.parseInt(res.toString()));
+
+//        FindChampion_2923 test = new FindChampion_2923();
+//        int[][] ints = {{0, 0, 1}, {1, 0, 1}, {0, 0, 0}};
+//        System.out.println("res = " + test.findChampion(ints));
     }
 
 }
