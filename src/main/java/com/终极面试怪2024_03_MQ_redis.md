@@ -257,4 +257,10 @@
     3、redisson限流(RRateLimiter)
         这种不是用的滑动窗口，而是一个令牌桶，直接使用rRateLimiter.trySetRate(RateType.OVERALL, 1, 1, RateIntervalUnit.SECONDS),
         这表示每一秒产生一个令牌
-        
+
+25、**`redis key value设计原则？`**     
+    key：01、可读性， 02、间接性 03、避免特殊字符 04、命名空间 05、长度限制
+    value：01、选择合适数据类型 02、避免大key 03、过期时间 04、压缩 05、合理控制数据结构内存大小。
+
+26、**`redis 实现乐观锁？`**     
+    利用watch命令特性来实现，利用watch监视key，在使用muulti事务中，如果键有改动后，exec如果为空，就这算是乐观锁执行成功。
