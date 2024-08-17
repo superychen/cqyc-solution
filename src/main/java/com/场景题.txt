@@ -37,10 +37,10 @@
 
 
 
-
-
-
 es存数据是怎么存的？
+    01、数据先写入buffer，此时无法被搜索，同时写入translog日志实现持久化。 02、buffer写满时，执行refresh操作，然后刷新到新的segment文件中，每隔1s。
+    03、隔一段时间对segment进行merge。04、每次refresh，buffer被清除，translog不会，当达到一定长度，处罚commit操作。
+    05、commit中，会把数据刷到os cache中，清空buffer，最后通过fsync操作写入磁盘文件。
 es倒排索引？
 线程池的最大核心线程数？
 虚拟机栈除了stackOverFLower溢出，如果不断创建线程，导致虚拟机栈扩展时无法申请足够的内存空间，也会OOM。
