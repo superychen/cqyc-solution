@@ -51,7 +51,6 @@ public class FindKthLargest_215 {
             } else {
                 l = LIndex + 1;
             }
-
         }
     }
 
