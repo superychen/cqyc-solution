@@ -1,4 +1,4 @@
-package com.cqyc.solution;
+package com.cqyc.solution.arr;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
