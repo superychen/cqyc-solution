@@ -1,6 +1,7 @@
-package com.cqyc.solution;
+package com.cqyc.solution.arr;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -70,6 +71,38 @@ public class Permute_46 {
             path.removeLast();
             vis[i] = false;
         }
+    }
+
+
+    /**
+     * 第二种解法
+     */
+    public List<List<Integer>> permuteTwo(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+        //先把原数据添加到path中
+        for (int num : nums) {
+            path.add(num);
+        }
+        int n = nums.length;
+        backTrack(n, path, res, 0);
+        return res;
+    }
+
+    private void backTrack(int n, List<Integer> path, List<List<Integer>> res, int first) {
+        //所有数都填完了
+        if(first == n) {
+            res.add(new ArrayList<>(path));
+        }
+        for (int i = first; i < n; i++) {
+            //先交换一手
+            Collections.swap(path, first, i);
+            //递归
+            backTrack(n, path, res, first + 1);
+            //在交换回来，撤销
+            Collections.swap(path, first, i);
+        }
+
     }
 
 
