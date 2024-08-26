@@ -68,6 +68,7 @@ public class Permute_46 {
             path.addLast(nums[i]);
             vis[i] = true;
             permuteTwo(nums, dix + 1);
+            //这里是已经添加list到res中了，然后需要清除数据和表示
             path.removeLast();
             vis[i] = false;
         }
@@ -77,7 +78,7 @@ public class Permute_46 {
     /**
      * 第二种解法
      */
-    public List<List<Integer>> permuteTwo(int[] nums) {
+    public List<List<Integer>> permute_second(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
         //先把原数据添加到path中
