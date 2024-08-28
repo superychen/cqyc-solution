@@ -54,16 +54,32 @@ public class MergeTwoLists_21 {
         ListNode listNode = new ListNode(1);
         listNode.next = new ListNode(2);
         listNode.next.next = new ListNode(4);
-        ListNode listNode2 = new ListNode(1);
-        listNode2.next = new ListNode(3);
-        listNode2.next.next = new ListNode(4);
+        listNode.next.next.next = new ListNode(5);
+        listNode.next.next.next.next = new ListNode(9);
 
-        MergeTwoLists_21 test = new MergeTwoLists_21();
-        ListNode res = test.mergeTwoListsTwo(listNode, listNode2);
-        while (res != null) {
-            System.out.print(res.val + " ");
-            res = res.next;
+        ListNode testNode = new ListNode(-1);
+        ListNode prev = testNode;
+        while(listNode != null) {
+            prev.next = listNode;
+            prev = prev.next;
+            listNode = listNode.next;
         }
+        while(testNode != null) {
+            System.out.print(testNode.val + " ");
+            testNode = testNode.next;
+        }
+
+
+//        ListNode listNode2 = new ListNode(1);
+//        listNode2.next = new ListNode(3);
+//        listNode2.next.next = new ListNode(4);
+//
+//        MergeTwoLists_21 test = new MergeTwoLists_21();
+//        ListNode res = test.mergeTwoListsTwo(listNode, listNode2);
+//        while (res != null) {
+//            System.out.print(res.val + " ");
+//            res = res.next;
+//        }
 
     }
 
