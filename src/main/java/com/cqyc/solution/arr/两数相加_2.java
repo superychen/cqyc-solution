@@ -19,30 +19,31 @@ public class 两数相加_2 {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode cur = new ListNode(0);
         ListNode prev = cur;
-        //给一个进位标识
-        int currentFlag = 0;
+        //给一个进制位
+        int carry = 0;
         while(l1 != null || l2 != null) {
-            //计算两个数的和，并且要考虑进位
+            //计算和
             int x = l1 == null ? 0 : l1.val;
             int y = l2 == null ? 0 : l2.val;
-            int sum = x + y + currentFlag;
+            int sum = x + y + carry;
 
-            //取余数和整除数,这里最大为1，最小为0
-            currentFlag = sum / 10;
+            //计算个位和十位,个位只会存在0和1
+            carry = sum / 10;
+            //十位就是加的和
             sum = sum % 10;
 
             prev.next = new ListNode(sum);
             prev = prev.next;
+
             if(l1 != null) {
                 l1 = l1.next;
             }
             if(l2 != null) {
                 l2 = l2.next;
             }
-            //到最后考虑往后进一位
-            if(currentFlag == 1) {
-                prev.next = new ListNode(currentFlag);
-            }
+        }
+        if(carry == 1) {
+            prev.next = new ListNode(carry);
         }
         return cur.next;
     }
