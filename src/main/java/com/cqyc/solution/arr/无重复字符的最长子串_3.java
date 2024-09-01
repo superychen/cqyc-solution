@@ -10,7 +10,7 @@ import java.util.Set;
  * @author cqyc
  * @create 2024-08-18-10:34
  */
-public class LengthOfLongestSubstring_3 {
+public class 无重复字符的最长子串_3 {
 
     /**
      * 输入: s = "abcabcbb"
@@ -64,10 +64,15 @@ public class LengthOfLongestSubstring_3 {
         return ans;
     }
 
-        public static void main(String[] args) {
+    public int lengthOfLongestSubstringTest(String s) {
+        //重刷代码写在这
+        return 0;
+    }
+
+    public static void main(String[] args) {
 //        String a = "abcabcbb";
         String a = " ";
-        LengthOfLongestSubstring_3 test = new LengthOfLongestSubstring_3();
+        无重复字符的最长子串_3 test = new 无重复字符的最长子串_3();
         System.out.println(test.lengthOfLongestSubstring2(a));
     }
 

@@ -14,7 +14,7 @@ import java.util.Arrays;
  * @author: CQYC
  * @date: 2024-08-20-8:46
  */
-public class FindKthLargest_215 {
+public class 数组中的第K个最大元素_215 {
 
     /**
      * 最简单

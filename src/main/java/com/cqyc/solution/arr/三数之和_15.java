@@ -13,7 +13,7 @@ import java.util.*;
  * @author: cqyc
  * @date 2022/1/10
  */
-public class ThreeSum15 {
+public class 三数之和_15 {
 
     //三重for循环
     public List<List<Integer>> threeSum(int[] nums) {
@@ -88,7 +88,7 @@ public class ThreeSum15 {
 
 
     public static void main(String[] args) {
-        ThreeSum15 sum15 = new ThreeSum15();
+        三数之和_15 sum15 = new 三数之和_15();
         int[] nums = new int[]{-1, 0, 1, 2, -1, -4};
         List<List<Integer>> lists = sum15.threeSumDoublePointer(nums);
         for (List<Integer> list : lists) {

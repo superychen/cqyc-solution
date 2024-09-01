@@ -6,7 +6,7 @@ package com.cqyc.solution.arr;
  * @author: cqyc
  * @date 2022/1/11
  */
-public class ReverseList_206 {
+public class 反转链表_206 {
 
     //递归，让他的next.next指针反指向
     public ListNode reverseList(ListNode head) {
@@ -32,6 +32,19 @@ public class ReverseList_206 {
         return prev;
     }
 
+
+    public ListNode reverseTest(ListNode head) {
+        ListNode prev = null;
+        ListNode cur = head;
+        while(cur != null) {
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
+
     public static class ListNode {
         int val;
         ListNode next;
@@ -41,7 +54,7 @@ public class ReverseList_206 {
     }
 
     public static void main(String[] args) {
-        ReverseList_206 test = new ReverseList_206();
+        反转链表_206 test = new 反转链表_206();
         ListNode node = new ListNode(1);
         node.next = new ListNode(2);
         node.next.next = new ListNode(3);
