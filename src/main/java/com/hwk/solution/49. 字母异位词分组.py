@@ -24,7 +24,7 @@
 """
 
 
-def demo0909(strs: list) -> list:
+def demo0910(strs: list) -> list:
     table = dict()
     for s in strs:
         sor_s = ''.join(sorted(s))
@@ -35,4 +35,4 @@ def demo0909(strs: list) -> list:
     return list(table.values())
 
 
-print(demo0909(["eat", "tea", "tan", "ate", "nat", "bat"]))
+print(demo0910(["eat", "tea", "tan", "ate", "nat", "bat"]))
