@@ -24,7 +24,19 @@
 """
 
 
-def demo0910(strs: list) -> list:
+def demo(strs: list) -> list:
+    table = dict()
+    for s in strs:
+        sor_s = ''.join(sorted(s))
+        if sor_s not in table:
+            table[sor_s] = [s]
+        else:
+            table[sor_s].append(s)
+    a = table.values()
+    print(type(a))
+    return list(table.values())
+
+def demo0913(strs: list):
     table = dict()
     for s in strs:
         sor_s = ''.join(sorted(s))
@@ -34,5 +46,56 @@ def demo0910(strs: list) -> list:
             table[sor_s].append(s)
     return list(table.values())
 
+def demo0829(strs):
+    table = dict()
+    for s in strs:
+        sor_s = ''.join(sorted(s))
+        if sor_s not in table:
+            table[sor_s] = [s]
+        else:
+            table[sor_s].append(s)
+    return list(table.values())
 
-print(demo0910(["eat", "tea", "tan", "ate", "nat", "bat"]))
+def demo0826(strs):
+    table = dict()
+    for s in strs:
+        sor_s = ''.join(sorted(s))
+        if sor_s not in table:
+            table[sor_s] = [s]
+        else:
+            table[sor_s].append(s)
+    return list(table.values())
+
+def demo0827(strs: list):
+    table = dict()
+    for s in strs:
+        sor_s = ''.join(sorted(s))
+        if sor_s not in table:
+            table[sor_s] = [s]
+        else:
+            table[sor_s].append(s)
+    return list(table.values())
+
+def demo1(strs: list) -> list:
+    table = dict()
+    for s in strs:
+        sor_str = ''.join(sorted(s))
+        if sor_str not in table:
+            table[sor_str] = [s]
+        else:
+            table[sor_str].append(s)
+    return list(table.values())
+
+
+def demo2(strs: list) -> list:
+    table = dict()
+    for s in strs:
+        sor_str = ''.join(sorted(s))
+        if sor_str not in table:
+            table[sor_str] = [s]
+        else:
+            table[sor_str].append(s)
+    return list(table.values())
+
+
+print(demo0827(["eat", "tea", "tan", "ate", "nat", "bat"]))
