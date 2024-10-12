@@ -27,6 +27,8 @@
 输入：nums = [5,4,-1,7,8]
 输出：23
 """
+
+
 def maxSubArray(nums: list) -> int:
     """
     走完这一生 如果我和你在一起会变得更好，那我们就在一起，否则我就丢下你。 我回顾我最光辉的时刻就是和不同人在一起，变得更好的最长连续时刻
@@ -39,6 +41,31 @@ def maxSubArray(nums: list) -> int:
         pre = max(pre + x, x)
         maxAns = max(maxAns, pre)
     return maxAns
+
+def maxSubArray1011(nums: list) -> list:
+    pre = 0
+    ans = nums[0]
+    for n in nums:
+        pre = max(pre + n, n)
+        ans = max(ans, pre)
+    return ans
+
+def maxSubArray1009(nums: list) -> int:
+    pre = 0
+    ans = nums[0]
+    for n in nums:
+        pre = max(pre + n, n)
+        ans = max(ans, pre)
+    return ans
+
+
+def maxSubArray1008(nums: list) -> int:
+    pre = 0
+    ans = nums[0]
+    for n in nums:
+        pre = max(pre + n, n)
+        ans = max(ans, pre)
+    return ans
 
 
 print(maxSubArray([-1, 1, 2, -2, 3, -3, 5]))
