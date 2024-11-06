@@ -23,3 +23,12 @@
 向右轮转 1 步: [99,-1,-100,3]
 向右轮转 2 步: [3,99,-1,-100]
 """
+
+
+def demo(nums: list, k: int):
+    k %= len(nums)
+    nums[:] = nums[-k:] + nums[:-k]
+    print(nums)
+
+
+demo(nums=[1, 2, 3, 4, 5, 6, 7], k=3)
